@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">MaestroMultiplicacion_EduardoEscribano</string>
+    <string name="title_home">Configuración</string>
+    <string name="title_dashboard">¡A Entrenar!</string>
+    <string name="title_notifications">Estadísticas</string>
+    <string name="dificultad">Selecciona la dificultad</string>
+    <string name="multiplicacion">Tabla de multiplicar</string>
+    <string name="avatar">Selecciona tu superheroe favorito</string>
+</resources>
