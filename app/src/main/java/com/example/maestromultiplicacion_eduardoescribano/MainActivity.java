@@ -28,7 +28,8 @@ public class MainActivity extends AppCompatActivity implements DialogoFecha.onFe
     private static int colorAplicacion;
     private static List<String> multiplicaciones;
     private static int indiceMultiplicacion;
-    private static int tablaTemporalSeleccionada;
+    private static int tablaTemporalSeleccionada = 2;
+    private static int indiceAvatar;
     private static List<Integer>avatares;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -114,5 +115,13 @@ public class MainActivity extends AppCompatActivity implements DialogoFecha.onFe
 
     public static void setAvatares(List<Integer> avatares) {
         MainActivity.avatares = avatares;
+    }
+
+    public static int getIndiceAvatar() {
+        return indiceAvatar;
+    }
+
+    public static void setIndiceAvatar(int indiceAvatar) {
+        MainActivity.indiceAvatar = indiceAvatar;
     }
 }

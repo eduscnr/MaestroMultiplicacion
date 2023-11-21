@@ -16,4 +16,6 @@
     <color name="colorThor">#FF33BBC5</color>
     <color name="colorMultiplicacion">#FF6F61C0</color>
     <color name="colorBtnSeleccionado">#FF7752FE</color>
+    <color name="multiplicacionAcertada">#FF9ADE7B</color>
+    <color name="multiplicacionErronea">#FFD80032</color>
 </resources>

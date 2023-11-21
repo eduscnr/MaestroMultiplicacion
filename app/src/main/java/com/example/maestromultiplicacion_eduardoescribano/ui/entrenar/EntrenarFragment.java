@@ -71,11 +71,24 @@ public class EntrenarFragment extends Fragment implements View.OnClickListener {
         aniadirBotones(11);
         botonValidar.setOnClickListener(this);
         botonValidar.setBackgroundColor(MainActivity.getColorAplicacion());
-        if(MainActivity.getTablaTemporalSeleccionada() != MainActivity.getTablaMultiplicar()){
+        /*
+         * Si el índice del avatar es mayor que cero debo de restar una foto porque en entrenar incremento uno y
+         * cuando cambio entre fagmento se muestra un foto de más sin haber realizado la multiplicación
+         * por donde se quedo
+         * */
+        if(MainActivity.getTablaTemporalSeleccionada() == MainActivity.getTablaMultiplicar()){
+            if (MainActivity.getIndiceAvatar() > 0) {
+                imageViewAvatar.setImageResource(MainActivity.getAvatares().get(MainActivity.getIndiceAvatar() - 1));
+            }
+        }
+        if (MainActivity.getTablaTemporalSeleccionada() != MainActivity.getTablaMultiplicar()) {
+            System.out.println("Entro en el if tabla temporal");
             inicializarAvatar(MainActivity.getAvatar());
             entrenar(MainActivity.getDificultad(), MainActivity.getTablaMultiplicar());
         }
         mostrarSiguienteMultiplicacion();
+        //Muestro el porcentaje en un textView
+        procentaje.setText(progreso + "%");
         return root;
     }
 
@@ -114,9 +127,13 @@ public class EntrenarFragment extends Fragment implements View.OnClickListener {
         if (MainActivity.getIndiceMultiplicacion() < MainActivity.getMultiplicaciones().size()) {
             multiplicacionActual = MainActivity.getMultiplicaciones().get(MainActivity.getIndiceMultiplicacion());
             textViewMultiplicacion.setText(multiplicacionActual);
-        }else{
-            multiplicacionActual = MainActivity.getMultiplicaciones().get(9);
-            textViewMultiplicacion.setText(multiplicacionActual);
+        } else {
+            //Este if va a entrar cuando la condicion del indece sea 10 ya que seria la ultima multiplicación y si falla y cambia
+            // de framgmento quiero se muestre esa
+            if(MainActivity.getIndiceMultiplicacion() == 10){
+                multiplicacionActual = MainActivity.getMultiplicaciones().get(MainActivity.getIndiceMultiplicacion()-1);
+                textViewMultiplicacion.setText(multiplicacionActual);
+            }
         }
     }
 
@@ -140,8 +157,8 @@ public class EntrenarFragment extends Fragment implements View.OnClickListener {
                 mostrarErroror.setText("");
                 mostrarIconoError.setVisibility(View.GONE);
                 mostrarCorrecion.setText(MainActivity.getMultiplicaciones().get(MainActivity.getIndiceMultiplicacion()) + "=" + respuesta);
-                imageViewAvatar.setImageResource(MainActivity.getAvatares().get(siguienteAvatar));
-                siguienteAvatar++;
+                imageViewAvatar.setImageResource(MainActivity.getAvatares().get(MainActivity.getIndiceAvatar()));
+                MainActivity.setIndiceAvatar(MainActivity.getIndiceAvatar() + 1);
                 //Si es incorrectao muestro el resultado mal con un cruz y el otro textView el resultado correcto con tick
             } else {
                 mostrarIconoError.setVisibility(View.VISIBLE);
@@ -217,6 +234,7 @@ public class EntrenarFragment extends Fragment implements View.OnClickListener {
     //Método para recoger las imagenes del avatar que ha seleccionado.
     private void inicializarAvatar(int posicionAvatar) {
         MainActivity.getAvatares().clear();
+        MainActivity.setIndiceAvatar(0);
         switch (posicionAvatar) {
             case 0:
                 MainActivity.getAvatares().addAll(Arrays.asList(R.drawable.superman01, R.drawable.superman02, R.drawable.superman03, R.drawable.superman04, R.drawable.superman05,

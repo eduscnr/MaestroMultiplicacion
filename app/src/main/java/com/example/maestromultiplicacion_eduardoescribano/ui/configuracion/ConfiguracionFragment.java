@@ -34,13 +34,14 @@ public class ConfiguracionFragment extends Fragment implements Spinner.OnItemSel
     private int tablaMultiplicar = 2;
     private Button botonFecha;
     private int colorAplicacion;
-    EditText etFecha;
+    private EditText etFecha;
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentConfiguracionBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
         Spinner pruebaSpinner = root.findViewById(R.id.spinner);
         Spinner dificultadSpinner = root.findViewById(R.id.spinnerDificultad);
         etFecha = root.findViewById(R.id.editTextText);
+        etFecha.setFocusable(false);
         botonFecha = root.findViewById(R.id.btnFecha);
         SpinnerPersonalizado adapter = new SpinnerPersonalizado(getContext(), R.layout.seleccion_heroes, nombreHeroes);
         SpinnerDificultad spinnerDificultad = new SpinnerDificultad(getContext(), R.layout.seleccion_dificultad, dificultades);
