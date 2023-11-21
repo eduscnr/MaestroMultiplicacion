@@ -156,7 +156,7 @@ public class ConfiguracionFragment extends Fragment implements Spinner.OnItemSel
                 tablaMultiplicar = Integer.parseInt(b.getText().toString());
                 MainActivity.setTablaMultiplicar(tablaMultiplicar);
             }
-
+            MainActivity.setTablaTemporalSeleccionada(0);
         }
     }
     //Método que cambia de color la barra de estados (con Window) y el ActionBar

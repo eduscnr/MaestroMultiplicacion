@@ -128,12 +128,8 @@ public class EntrenarFragment extends Fragment implements View.OnClickListener {
             multiplicacionActual = MainActivity.getMultiplicaciones().get(MainActivity.getIndiceMultiplicacion());
             textViewMultiplicacion.setText(multiplicacionActual);
         } else {
-            //Este if va a entrar cuando la condicion del indece sea 10 ya que seria la ultima multiplicación y si falla y cambia
-            // de framgmento quiero se muestre esa
-            if(MainActivity.getIndiceMultiplicacion() == 10){
                 multiplicacionActual = MainActivity.getMultiplicaciones().get(MainActivity.getIndiceMultiplicacion()-1);
                 textViewMultiplicacion.setText(multiplicacionActual);
-            }
         }
     }
 

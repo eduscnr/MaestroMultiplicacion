@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity implements DialogoFecha.onFe
     private static int colorAplicacion;
     private static List<String> multiplicaciones;
     private static int indiceMultiplicacion;
-    private static int tablaTemporalSeleccionada = 2;
+    private static int tablaTemporalSeleccionada;
     private static int indiceAvatar;
     private static List<Integer>avatares;
     @Override
