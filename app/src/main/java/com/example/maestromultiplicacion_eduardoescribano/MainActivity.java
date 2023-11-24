@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.widget.EditText;
 
 import com.example.maestromultiplicacion_eduardoescribano.ui.dialogos.DialogoFecha;
+import com.example.maestromultiplicacion_eduardoescribano.ui.estadisticas.Estadisticas;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -31,11 +32,13 @@ public class MainActivity extends AppCompatActivity implements DialogoFecha.onFe
     private static int tablaTemporalSeleccionada;
     private static int indiceAvatar;
     private static List<Integer>avatares;
+    private static List<Estadisticas> estadisticas;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         multiplicaciones = new ArrayList<>();
         avatares = new ArrayList<>();
+        estadisticas = new ArrayList<>();
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
@@ -123,5 +126,9 @@ public class MainActivity extends AppCompatActivity implements DialogoFecha.onFe
 
     public static void setIndiceAvatar(int indiceAvatar) {
         MainActivity.indiceAvatar = indiceAvatar;
+    }
+
+    public static List<Estadisticas> getEstadisticas() {
+        return estadisticas;
     }
 }

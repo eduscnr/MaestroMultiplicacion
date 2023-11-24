@@ -46,6 +46,7 @@ public class EntrenarFragment extends Fragment implements View.OnClickListener {
     private ProgressBar barraProgreso;
     private int progreso;
     private int siguienteAvatar = 0;
+    private int porcetajeDeExito = 100;
     private FragmentEntrenarBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -161,6 +162,7 @@ public class EntrenarFragment extends Fragment implements View.OnClickListener {
                 mostrarIconoCorrecto.setVisibility(View.VISIBLE);
                 mostrarCorrecion.setText(MainActivity.getMultiplicaciones().get(MainActivity.getIndiceMultiplicacion()) + "=" + respuesta);
                 mostrarErroror.setText(MainActivity.getMultiplicaciones().get(MainActivity.getIndiceMultiplicacion()) + "=" + respuestaUsuario);
+                porcetajeDeExito-=10;
             }
             //Incremento el indice de la multiplicación
             MainActivity.setIndiceMultiplicacion(MainActivity.getIndiceMultiplicacion() + 1);
