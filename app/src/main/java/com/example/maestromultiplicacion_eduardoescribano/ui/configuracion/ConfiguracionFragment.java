@@ -154,9 +154,10 @@ public class ConfiguracionFragment extends Fragment implements Spinner.OnItemSel
             }else{
                 Toast.makeText(getContext(), "Ha seleccionado la tabla de multiplicar: " + b.getText().toString(), Toast.LENGTH_SHORT).show();
                 tablaMultiplicar = Integer.parseInt(b.getText().toString());
+                System.out.println(tablaMultiplicar);
                 MainActivity.setTablaMultiplicar(tablaMultiplicar);
             }
-            MainActivity.setTablaTemporalSeleccionada(0);
+            MainActivity.setTablaTemporalSeleccionada(-1);
         }
     }
     //Método que cambia de color la barra de estados (con Window) y el ActionBar

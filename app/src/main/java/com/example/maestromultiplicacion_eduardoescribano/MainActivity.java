@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity implements DialogoFecha.onFe
     private ActivityMainBinding binding;
     private static int avatar;
     private static String dificultad = "Fácil";
-    private static int tablaMultiplicar = 2;
+    private static int tablaMultiplicar;
     private static int colorAplicacion;
     private static List<String> multiplicaciones;
     private static int indiceMultiplicacion;
@@ -39,6 +39,7 @@ public class MainActivity extends AppCompatActivity implements DialogoFecha.onFe
         multiplicaciones = new ArrayList<>();
         avatares = new ArrayList<>();
         estadisticas = new ArrayList<>();
+        setTablaMultiplicar(2);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(

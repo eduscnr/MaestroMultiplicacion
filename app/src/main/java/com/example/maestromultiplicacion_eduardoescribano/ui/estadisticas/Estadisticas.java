@@ -5,12 +5,12 @@ import java.util.List;
 public class Estadisticas {
     private int tablaSeleccionada;
     private String porcetajeDeExito;
-    private String tablaFallada;
+    private List<String> tablaFallada;
 
     public Estadisticas() {
     }
 
-    public Estadisticas(int tablaSeleccionada, String porcetajeDeExito, String tablaFallada) {
+    public Estadisticas(int tablaSeleccionada, String porcetajeDeExito, List<String> tablaFallada) {
         this.tablaSeleccionada = tablaSeleccionada;
         this.porcetajeDeExito = porcetajeDeExito;
         this.tablaFallada = tablaFallada;
@@ -32,11 +32,11 @@ public class Estadisticas {
         this.porcetajeDeExito = porcetajeDeExito;
     }
 
-    public String getTablaFallada() {
+    public List<String> getTablaFallada() {
         return tablaFallada;
     }
 
-    public void setTablaFallada(String tablaFallada) {
+    public void setTablaFallada(List<String> tablaFallada) {
         this.tablaFallada = tablaFallada;
     }
 

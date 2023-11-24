@@ -14,6 +14,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import com.example.maestromultiplicacion_eduardoescribano.MainActivity;
 import com.example.maestromultiplicacion_eduardoescribano.R;
 import com.example.maestromultiplicacion_eduardoescribano.databinding.FragmentEstadisticasBinding;
 
@@ -44,14 +45,25 @@ public class EstadisticasFragment extends Fragment{
                 if(!edEmail.getText().toString().equalsIgnoreCase("")){
                     i.setAction(Intent.ACTION_SEND);
                     i.setData(Uri.parse("mailto:"));
-                    String para[]={edEmail.getText().toString(),"otrocontacto@gmail.com"};
-                    i.putExtra(Intent.EXTRA_EMAIL,para);
-                    i.putExtra(Intent.EXTRA_SUBJECT,"Saludos desde Android");
-                    i.putExtra(Intent.EXTRA_TEXT,"Hola!!. ¿Qué tal?. Este es nuestro primer email");
+                    i.putExtra(Intent.EXTRA_SUBJECT, "Estadísticas de Multiplicación");
+                    String para[]={edEmail.getText().toString()};
+                    i.putExtra(Intent.EXTRA_EMAIL, para);
+                    StringBuilder mensaje = new StringBuilder("Estadísticas de Multiplicación:\n\n");
+                    for (Estadisticas estadisticas : MainActivity.getEstadisticas()) {
+                        mensaje.append("Tabla: ").append(estadisticas.getTablaSeleccionada()).append("\n");
+                        mensaje.append("Porcentaje de Éxito: ").append(estadisticas.getPorcetajeDeExito()).append("\n");
+                        mensaje.append("Tablas Falladas: ").append(estadisticas.getTablaFallada()).append("\n\n");
+                    }
+                    i.putExtra(Intent.EXTRA_TEXT, mensaje.toString());
                     i.setType("message/rfc822");
                     chooser=i.createChooser(i,"Enviar Email");
-                    startActivity(i);
-                    Toast.makeText(getContext(),"Envía el email!!",Toast.LENGTH_LONG).show();
+                    if (chooser.resolveActivity(requireContext().getPackageManager()) != null) {
+                        startActivity(chooser);
+                        Toast.makeText(getContext(), "Enviando estadísticas por correo electrónico", Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(getContext(), "No hay ninguna aplicación de correo electrónico instalada", Toast.LENGTH_LONG).show();
+                    }
+                    //Toast.makeText(getContext(),"Envía el email!!",Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -69,18 +81,4 @@ public class EstadisticasFragment extends Fragment{
         super.onStop();
         edEmail.setText("");
     }
-    /*
-    *
-    *  EditText edEmail=(EditText)findViewById(R.id.edEmail);
-            i.setAction(Intent.ACTION_SEND);
-            i.setData(Uri.parse("mailto:"));
-            String para[]={edEmail.getText().toString(),"otrocontacto@gmail.com"};
-            i.putExtra(Intent.EXTRA_EMAIL,para);
-            i.putExtra(Intent.EXTRA_SUBJECT,"Saludos desde Android");
-            i.putExtra(Intent.EXTRA_TEXT,"Hola!!. ¿Qué tal?. Este es nuestro primer email");
-            i.setType("message/rfc822");
-            chooser=i.createChooser(i,"Enviar Email");
-            startActivity(i);
-            Toast.makeText(this.getApplicationContext(),"Envía el email!!",Toast.LENGTH_LONG).show();
-    * */
 }

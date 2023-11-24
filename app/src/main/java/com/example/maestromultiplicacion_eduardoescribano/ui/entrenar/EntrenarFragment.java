@@ -26,6 +26,7 @@ import androidx.gridlayout.widget.GridLayout;
 import com.example.maestromultiplicacion_eduardoescribano.MainActivity;
 import com.example.maestromultiplicacion_eduardoescribano.R;
 import com.example.maestromultiplicacion_eduardoescribano.databinding.FragmentEntrenarBinding;
+import com.example.maestromultiplicacion_eduardoescribano.ui.estadisticas.Estadisticas;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -47,11 +48,14 @@ public class EntrenarFragment extends Fragment implements View.OnClickListener {
     private int progreso;
     private int siguienteAvatar = 0;
     private int porcetajeDeExito = 100;
+    private List<String> multiplicacionFallidas;
     private FragmentEntrenarBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         if (savedInstanceState != null) {
             MainActivity.setIndiceMultiplicacion(savedInstanceState.getInt("indiceMultiplicacion"));
+            multiplicacionFallidas = savedInstanceState.getStringArrayList("multiplicacionFallidas");
+            porcetajeDeExito = savedInstanceState.getInt("porcentajeExito");
             progreso = savedInstanceState.getInt("progreso");
         }
         binding = FragmentEntrenarBinding.inflate(inflater, container, false);
@@ -77,13 +81,12 @@ public class EntrenarFragment extends Fragment implements View.OnClickListener {
          * cuando cambio entre fagmento se muestra un foto de más sin haber realizado la multiplicación
          * por donde se quedo
          * */
-        if(MainActivity.getTablaTemporalSeleccionada() == MainActivity.getTablaMultiplicar()){
+        if (MainActivity.getTablaTemporalSeleccionada() == MainActivity.getTablaMultiplicar()) {
             if (MainActivity.getIndiceAvatar() > 0) {
                 imageViewAvatar.setImageResource(MainActivity.getAvatares().get(MainActivity.getIndiceAvatar() - 1));
             }
         }
         if (MainActivity.getTablaTemporalSeleccionada() != MainActivity.getTablaMultiplicar()) {
-            System.out.println("Entro en el if tabla temporal");
             inicializarAvatar(MainActivity.getAvatar());
             entrenar(MainActivity.getDificultad(), MainActivity.getTablaMultiplicar());
         }
@@ -125,12 +128,15 @@ public class EntrenarFragment extends Fragment implements View.OnClickListener {
     //Método encargado de mostrar la siguiente multiplicación del la lista.
     private void mostrarSiguienteMultiplicacion() {
         String multiplicacionActual;
+        System.out.println(MainActivity.getMultiplicaciones());
         if (MainActivity.getIndiceMultiplicacion() < MainActivity.getMultiplicaciones().size()) {
             multiplicacionActual = MainActivity.getMultiplicaciones().get(MainActivity.getIndiceMultiplicacion());
             textViewMultiplicacion.setText(multiplicacionActual);
         } else {
-                multiplicacionActual = MainActivity.getMultiplicaciones().get(MainActivity.getIndiceMultiplicacion()-1);
-                textViewMultiplicacion.setText(multiplicacionActual);
+            multiplicacionActual = MainActivity.getMultiplicaciones().get(MainActivity.getIndiceMultiplicacion() - 1);
+            textViewMultiplicacion.setText(multiplicacionActual);
+            MainActivity.getEstadisticas().add(new Estadisticas(MainActivity.getTablaMultiplicar(), String.valueOf(porcetajeDeExito + "%"), multiplicacionFallidas));
+            System.out.println(MainActivity.getEstadisticas());
         }
     }
 
@@ -162,7 +168,8 @@ public class EntrenarFragment extends Fragment implements View.OnClickListener {
                 mostrarIconoCorrecto.setVisibility(View.VISIBLE);
                 mostrarCorrecion.setText(MainActivity.getMultiplicaciones().get(MainActivity.getIndiceMultiplicacion()) + "=" + respuesta);
                 mostrarErroror.setText(MainActivity.getMultiplicaciones().get(MainActivity.getIndiceMultiplicacion()) + "=" + respuestaUsuario);
-                porcetajeDeExito-=10;
+                porcetajeDeExito -= 10;
+                multiplicacionFallidas.add(MainActivity.getMultiplicaciones().get(MainActivity.getIndiceMultiplicacion()));
             }
             //Incremento el indice de la multiplicación
             MainActivity.setIndiceMultiplicacion(MainActivity.getIndiceMultiplicacion() + 1);
@@ -218,6 +225,7 @@ public class EntrenarFragment extends Fragment implements View.OnClickListener {
                 Collections.shuffle(MainActivity.getMultiplicaciones());
                 break;
         }
+        porcetajeDeExito = 100;
         barraProgreso.setIndeterminate(false);
         procentaje.setText("0%");
         progreso = 0;
@@ -232,6 +240,7 @@ public class EntrenarFragment extends Fragment implements View.OnClickListener {
     //Método para recoger las imagenes del avatar que ha seleccionado.
     private void inicializarAvatar(int posicionAvatar) {
         MainActivity.getAvatares().clear();
+        multiplicacionFallidas = new ArrayList<>();
         MainActivity.setIndiceAvatar(0);
         switch (posicionAvatar) {
             case 0:
@@ -269,7 +278,9 @@ public class EntrenarFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
+        outState.putStringArrayList("multiplicacionFallidas", (ArrayList<String>) multiplicacionFallidas);
         outState.putInt("indiceMultiplicacion", MainActivity.getIndiceMultiplicacion());
+        outState.putInt("porcentajeExito", porcetajeDeExito);
         outState.putInt("progreso", progreso);
     }
 }
