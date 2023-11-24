@@ -33,12 +33,14 @@ public class MainActivity extends AppCompatActivity implements DialogoFecha.onFe
     private static int indiceAvatar;
     private static List<Integer>avatares;
     private static List<Estadisticas> estadisticas;
+    private static List<Integer> avataresColeccionables;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         multiplicaciones = new ArrayList<>();
         avatares = new ArrayList<>();
         estadisticas = new ArrayList<>();
+        avataresColeccionables =  new ArrayList<>();
         setTablaMultiplicar(2);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -131,5 +133,9 @@ public class MainActivity extends AppCompatActivity implements DialogoFecha.onFe
 
     public static List<Estadisticas> getEstadisticas() {
         return estadisticas;
+    }
+
+    public static List<Integer> getAvataresColeccionables() {
+        return avataresColeccionables;
     }
 }

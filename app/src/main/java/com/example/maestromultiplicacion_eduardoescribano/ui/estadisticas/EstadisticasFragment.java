@@ -18,9 +18,6 @@ import com.example.maestromultiplicacion_eduardoescribano.MainActivity;
 import com.example.maestromultiplicacion_eduardoescribano.R;
 import com.example.maestromultiplicacion_eduardoescribano.databinding.FragmentEstadisticasBinding;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class EstadisticasFragment extends Fragment{
     private FragmentEstadisticasBinding binding;
     private Button btnEstadisticas;
@@ -32,10 +29,7 @@ public class EstadisticasFragment extends Fragment{
         btnEstadisticas = root.findViewById(R.id.btnEnviar);
         edEmail = root.findViewById(R.id.etEmail);
         ListView listViewAvatares = root.findViewById(R.id.listViewAvatares);
-        List<Integer> avatares = new ArrayList<>();
-        avatares.add(R.drawable.batman10);
-        avatares.add(R.drawable.superman10);
-        AdpatorAvatares aa = new AdpatorAvatares(requireContext(), avatares);
+        AdpatorAvatares aa = new AdpatorAvatares(requireContext(), MainActivity.getAvataresColeccionables());
         listViewAvatares.setAdapter(aa);
         btnEstadisticas.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,6 +46,7 @@ public class EstadisticasFragment extends Fragment{
                     for (Estadisticas estadisticas : MainActivity.getEstadisticas()) {
                         mensaje.append("Tabla: ").append(estadisticas.getTablaSeleccionada()).append("\n");
                         mensaje.append("Porcentaje de Éxito: ").append(estadisticas.getPorcetajeDeExito()).append("\n");
+                        mensaje.append("Fecha: ").append(estadisticas.convertirFecha()).append("\n");
                         mensaje.append("Tablas Falladas: ").append(estadisticas.getTablaFallada()).append("\n\n");
                     }
                     i.putExtra(Intent.EXTRA_TEXT, mensaje.toString());

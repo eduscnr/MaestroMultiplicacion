@@ -31,6 +31,7 @@ import com.example.maestromultiplicacion_eduardoescribano.ui.estadisticas.Estadi
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -128,15 +129,20 @@ public class EntrenarFragment extends Fragment implements View.OnClickListener {
     //Método encargado de mostrar la siguiente multiplicación del la lista.
     private void mostrarSiguienteMultiplicacion() {
         String multiplicacionActual;
-        System.out.println(MainActivity.getMultiplicaciones());
         if (MainActivity.getIndiceMultiplicacion() < MainActivity.getMultiplicaciones().size()) {
             multiplicacionActual = MainActivity.getMultiplicaciones().get(MainActivity.getIndiceMultiplicacion());
             textViewMultiplicacion.setText(multiplicacionActual);
         } else {
             multiplicacionActual = MainActivity.getMultiplicaciones().get(MainActivity.getIndiceMultiplicacion() - 1);
             textViewMultiplicacion.setText(multiplicacionActual);
-            MainActivity.getEstadisticas().add(new Estadisticas(MainActivity.getTablaMultiplicar(), String.valueOf(porcetajeDeExito + "%"), multiplicacionFallidas));
-            System.out.println(MainActivity.getEstadisticas());
+            MainActivity.getEstadisticas().add(new Estadisticas(MainActivity.getTablaMultiplicar(), String.valueOf(porcetajeDeExito + "%"), multiplicacionFallidas, new GregorianCalendar()));
+            System.out.println(MainActivity.getIndiceAvatar() + " Indice avatar");
+            if(MainActivity.getIndiceAvatar() == 10){
+                int avatar = MainActivity.getAvatares().get(9);
+                if(!MainActivity.getAvataresColeccionables().contains(avatar)){
+                    MainActivity.getAvataresColeccionables().add(MainActivity.getAvatares().get(9));
+                }
+            }
         }
     }
 
