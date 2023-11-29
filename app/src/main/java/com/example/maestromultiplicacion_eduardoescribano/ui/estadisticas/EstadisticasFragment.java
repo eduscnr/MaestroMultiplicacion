@@ -47,7 +47,7 @@ public class EstadisticasFragment extends Fragment{
                         mensaje.append("Tabla: ").append(estadisticas.getTablaSeleccionada()).append("\n");
                         mensaje.append("Porcentaje de Éxito: ").append(estadisticas.getPorcetajeDeExito()).append("\n");
                         mensaje.append("Fecha: ").append(estadisticas.convertirFecha()).append("\n");
-                        mensaje.append("Tablas Falladas: ").append(estadisticas.getTablaFallada()).append("\n\n");
+                        mensaje.append("Multiplicaciones Fallidas: ").append(estadisticas.getMultiplicacionesFallidas()).append("\n\n");
                     }
                     i.putExtra(Intent.EXTRA_TEXT, mensaje.toString());
                     i.setType("message/rfc822");

@@ -129,20 +129,26 @@ public class EntrenarFragment extends Fragment implements View.OnClickListener {
     //Método encargado de mostrar la siguiente multiplicación del la lista.
     private void mostrarSiguienteMultiplicacion() {
         String multiplicacionActual;
+        //Muestro la multiplicación si esta dentro del rango
         if (MainActivity.getIndiceMultiplicacion() < MainActivity.getMultiplicaciones().size()) {
             multiplicacionActual = MainActivity.getMultiplicaciones().get(MainActivity.getIndiceMultiplicacion());
             textViewMultiplicacion.setText(multiplicacionActual);
+            /*Si esta fuera del rango significa que el indice a llegado al 10 y no hay más multiplicaciones lo que significa que hemos llegado al final
+              y debo de mostrar la ultima multiplicación
+            */
         } else {
             multiplicacionActual = MainActivity.getMultiplicaciones().get(MainActivity.getIndiceMultiplicacion() - 1);
             textViewMultiplicacion.setText(multiplicacionActual);
             MainActivity.getEstadisticas().add(new Estadisticas(MainActivity.getTablaMultiplicar(), String.valueOf(porcetajeDeExito + "%"), multiplicacionFallidas, new GregorianCalendar()));
-            System.out.println(MainActivity.getIndiceAvatar() + " Indice avatar");
+            //Si el indice del avatar a llegado al 10 porque hay 10 imagenes significa que a conseguido completar el avatar.
             if(MainActivity.getIndiceAvatar() == 10){
                 int avatar = MainActivity.getAvatares().get(9);
                 if(!MainActivity.getAvataresColeccionables().contains(avatar)){
                     MainActivity.getAvataresColeccionables().add(MainActivity.getAvatares().get(9));
                 }
             }
+            //Deshabilito el boto de envir respuestas para que no envien varias estadísticas.
+            botonValidar.setEnabled(false);
         }
     }
 

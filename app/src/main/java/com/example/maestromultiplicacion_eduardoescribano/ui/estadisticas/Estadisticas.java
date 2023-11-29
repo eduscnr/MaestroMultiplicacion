@@ -7,7 +7,7 @@ import java.util.List;
 public class Estadisticas {
     private int tablaSeleccionada;
     private String porcetajeDeExito;
-    private List<String> tablaFallada;
+    private List<String> multiplicacionesFallidas;
     private GregorianCalendar horario;
 
     public Estadisticas() {
@@ -16,7 +16,7 @@ public class Estadisticas {
     public Estadisticas(int tablaSeleccionada, String porcetajeDeExito, List<String> tablaFallada, GregorianCalendar horario) {
         this.tablaSeleccionada = tablaSeleccionada;
         this.porcetajeDeExito = porcetajeDeExito;
-        this.tablaFallada = tablaFallada;
+        this.multiplicacionesFallidas = tablaFallada;
         this.horario = horario;
     }
 
@@ -36,12 +36,12 @@ public class Estadisticas {
         this.porcetajeDeExito = porcetajeDeExito;
     }
 
-    public List<String> getTablaFallada() {
-        return tablaFallada;
+    public List<String> getMultiplicacionesFallidas() {
+        return multiplicacionesFallidas;
     }
 
-    public void setTablaFallada(List<String> tablaFallada) {
-        this.tablaFallada = tablaFallada;
+    public void setMultiplicacionesFallidas(List<String> multiplicacionesFallidas) {
+        this.multiplicacionesFallidas = multiplicacionesFallidas;
     }
 
     @Override
@@ -49,7 +49,7 @@ public class Estadisticas {
         return "Estadisticas{" +
                 "tablaSeleccionada=" + tablaSeleccionada +
                 ", porcetajeDeExito=" + porcetajeDeExito +
-                ", tablaFallada='" + tablaFallada + '\'' +
+                ", tablaFallada='" + multiplicacionesFallidas + '\'' +
                 '}';
     }
     public String convertirFecha() {
