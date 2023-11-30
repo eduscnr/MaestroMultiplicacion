@@ -139,7 +139,10 @@ public class EntrenarFragment extends Fragment implements View.OnClickListener {
         } else {
             multiplicacionActual = MainActivity.getMultiplicaciones().get(MainActivity.getIndiceMultiplicacion() - 1);
             textViewMultiplicacion.setText(multiplicacionActual);
-            MainActivity.getEstadisticas().add(new Estadisticas(MainActivity.getTablaMultiplicar(), String.valueOf(porcetajeDeExito + "%"), multiplicacionFallidas, new GregorianCalendar()));
+            //Si el boton de validar (Ok) habilitado envia la estadisticas.
+            if(botonValidar.isEnabled()){
+                MainActivity.getEstadisticas().add(new Estadisticas(MainActivity.getTablaMultiplicar(), String.valueOf(porcetajeDeExito + "%"), multiplicacionFallidas, new GregorianCalendar()));
+            }
             //Si el indice del avatar a llegado al 10 porque hay 10 imagenes significa que a conseguido completar el avatar.
             if(MainActivity.getIndiceAvatar() == 10){
                 int avatar = MainActivity.getAvatares().get(9);
