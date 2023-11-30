@@ -16,6 +16,7 @@ import androidx.navigation.ui.NavigationUI;
 import com.example.maestromultiplicacion_eduardoescribano.databinding.ActivityMainBinding;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -34,13 +35,14 @@ public class MainActivity extends AppCompatActivity implements DialogoFecha.onFe
     private static List<Integer>avatares;
     private static List<Estadisticas> estadisticas;
     private static List<Integer> avataresColeccionables;
+    private static List<Integer> avataresFinales = new ArrayList<>(Arrays.asList(R.drawable.superman10, R.drawable.batman10, R.drawable.ironman10, R.drawable.spiderman10, R.drawable.thor10));
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         multiplicaciones = new ArrayList<>();
         avatares = new ArrayList<>();
         estadisticas = new ArrayList<>();
-        avataresColeccionables =  new ArrayList<>();
+        avataresColeccionables = new ArrayList<>();
         setTablaMultiplicar(2);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -137,5 +139,13 @@ public class MainActivity extends AppCompatActivity implements DialogoFecha.onFe
 
     public static List<Integer> getAvataresColeccionables() {
         return avataresColeccionables;
+    }
+
+    public static List<Integer> getAvataresFinales() {
+        return avataresFinales;
+    }
+
+    public static void setAvataresFinales(List<Integer> avataresFinales) {
+        MainActivity.avataresFinales = avataresFinales;
     }
 }

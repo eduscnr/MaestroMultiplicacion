@@ -1,6 +1,9 @@
 package com.example.maestromultiplicacion_eduardoescribano.ui.estadisticas;
 
 import android.content.Intent;
+import android.graphics.ColorFilter;
+import android.graphics.ColorMatrix;
+import android.graphics.ColorMatrixColorFilter;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -8,6 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import androidx.gridlayout.widget.GridLayout;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -22,15 +27,14 @@ public class EstadisticasFragment extends Fragment{
     private FragmentEstadisticasBinding binding;
     private Button btnEstadisticas;
     private EditText edEmail;
+    private GridLayout gridLayout;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentEstadisticasBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
         btnEstadisticas = root.findViewById(R.id.btnEnviar);
         edEmail = root.findViewById(R.id.etEmail);
-        ListView listViewAvatares = root.findViewById(R.id.listViewAvatares);
-        AdpatorAvatares aa = new AdpatorAvatares(requireContext(), MainActivity.getAvataresColeccionables());
-        listViewAvatares.setAdapter(aa);
+        mostrarImagenesGrid();
         btnEstadisticas.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -63,6 +67,25 @@ public class EstadisticasFragment extends Fragment{
             }
         });
         return root;
+    }
+    private void mostrarImagenesGrid(){
+        gridLayout = binding.getRoot().findViewById(R.id.gridImageView);
+        ImageView imgView;
+        for(int i = 0;i<MainActivity.getAvataresFinales().size();i++){
+            imgView = new ImageView(requireContext());
+            if(MainActivity.getAvataresColeccionables().contains(MainActivity.getAvataresFinales().get(i))){
+                imgView.setImageResource(MainActivity.getAvataresFinales().get(i));
+            }else{
+                imgView.setImageResource(MainActivity.getAvataresFinales().get(i));
+                ColorMatrix colorMatrix = new ColorMatrix();
+                colorMatrix.setSaturation(0F);
+                ColorFilter colorFilter = new ColorMatrixColorFilter(colorMatrix);
+                imgView.setColorFilter(colorFilter);
+            }
+            ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(380, 380);
+            imgView.setLayoutParams(layoutParams);
+            gridLayout.addView(imgView, i);
+        }
     }
 
     @Override
