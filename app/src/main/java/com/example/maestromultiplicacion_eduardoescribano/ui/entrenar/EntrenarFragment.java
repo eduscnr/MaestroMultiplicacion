@@ -51,6 +51,7 @@ public class EntrenarFragment extends Fragment implements View.OnClickListener {
     private int porcetajeDeExito = 100;
     private List<String> multiplicacionFallidas;
     private FragmentEntrenarBinding binding;
+    private boolean enviarEstadisticas = true;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         if (savedInstanceState != null) {
@@ -58,6 +59,7 @@ public class EntrenarFragment extends Fragment implements View.OnClickListener {
             multiplicacionFallidas = savedInstanceState.getStringArrayList("multiplicacionFallidas");
             porcetajeDeExito = savedInstanceState.getInt("porcentajeExito");
             progreso = savedInstanceState.getInt("progreso");
+            enviarEstadisticas = savedInstanceState.getBoolean("enviarEstadisticas");
         }
         binding = FragmentEntrenarBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
@@ -88,6 +90,7 @@ public class EntrenarFragment extends Fragment implements View.OnClickListener {
             }
         }
         if (MainActivity.getTablaTemporalSeleccionada() != MainActivity.getTablaMultiplicar()) {
+            enviarEstadisticas = true;
             inicializarAvatar(MainActivity.getAvatar());
             entrenar(MainActivity.getDificultad(), MainActivity.getTablaMultiplicar());
         }
@@ -140,8 +143,9 @@ public class EntrenarFragment extends Fragment implements View.OnClickListener {
             multiplicacionActual = MainActivity.getMultiplicaciones().get(MainActivity.getIndiceMultiplicacion() - 1);
             textViewMultiplicacion.setText(multiplicacionActual);
             //Si el boton de validar (Ok) habilitado envia la estadisticas.
-            if(botonValidar.isEnabled()){
-                MainActivity.getEstadisticas().add(new Estadisticas(MainActivity.getTablaMultiplicar(), String.valueOf(porcetajeDeExito + "%"), multiplicacionFallidas, new GregorianCalendar()));
+            if(enviarEstadisticas){
+                MainActivity.getEstadisticas().add(new Estadisticas(MainActivity.getTablaMultiplicar(), String.valueOf(porcetajeDeExito + "%"), multiplicacionFallidas, MainActivity.getHorario() == null ? new GregorianCalendar() : MainActivity.getHorario()));
+                enviarEstadisticas = false;
             }
             //Si el indice del avatar a llegado al 10 porque hay 10 imagenes significa que a conseguido completar el avatar.
             if(MainActivity.getIndiceAvatar() == 10){
@@ -150,8 +154,6 @@ public class EntrenarFragment extends Fragment implements View.OnClickListener {
                     MainActivity.getAvataresColeccionables().add(MainActivity.getAvatares().get(9));
                 }
             }
-            //Deshabilito el boto de envir respuestas para que no envien varias estadísticas.
-            botonValidar.setEnabled(false);
         }
     }
 
@@ -297,5 +299,6 @@ public class EntrenarFragment extends Fragment implements View.OnClickListener {
         outState.putInt("indiceMultiplicacion", MainActivity.getIndiceMultiplicacion());
         outState.putInt("porcentajeExito", porcetajeDeExito);
         outState.putInt("progreso", progreso);
+        outState.putBoolean("enviarEstadisticas", enviarEstadisticas);
     }
 }

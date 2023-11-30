@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity implements DialogoFecha.onFe
     private static List<Estadisticas> estadisticas;
     private static List<Integer> avataresColeccionables;
     private static List<Integer> avataresFinales = new ArrayList<>(Arrays.asList(R.drawable.superman10, R.drawable.batman10, R.drawable.ironman10, R.drawable.spiderman10, R.drawable.thor10));
+    private static GregorianCalendar horario;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,6 +60,7 @@ public class MainActivity extends AppCompatActivity implements DialogoFecha.onFe
         EditText etFecha = findViewById(R.id.editTextText);
         etFecha.setText(calendar.get(Calendar.DAY_OF_MONTH) + "/" + (calendar.get(Calendar.MONTH) + 1)
                 + "/" + calendar.get(Calendar.YEAR));
+        horario = calendar;
     }
 
     public static int getAvatar() {
@@ -147,5 +149,9 @@ public class MainActivity extends AppCompatActivity implements DialogoFecha.onFe
 
     public static void setAvataresFinales(List<Integer> avataresFinales) {
         MainActivity.avataresFinales = avataresFinales;
+    }
+
+    public static GregorianCalendar getHorario() {
+        return horario;
     }
 }
